@@ -1,0 +1,171 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>WalletOneTest</name>
+    </assembly>
+    <members>
+        <member name="P:WalletOneTest.Binding.CreateTaskBinding.Id">
+            <summary>
+            Номер задачи
+            </summary>
+        </member>
+        <member name="P:WalletOneTest.Binding.CreateTaskBinding.Name">
+            <summary>
+            Название задачи
+            </summary>
+        </member>
+        <member name="P:WalletOneTest.Binding.CreateTaskBinding.Description">
+            <summary>
+            Описание задачи
+            </summary>
+        </member>
+        <member name="P:WalletOneTest.Binding.CreateTaskBinding.DateCreate">
+            <summary>
+            Дата создания
+            </summary>
+        </member>
+        <member name="P:WalletOneTest.Binding.CreateTaskBinding.DateLastEdit">
+            <summary>
+            Дата последнего изменения
+            </summary>
+        </member>
+        <member name="P:WalletOneTest.Binding.CreateTaskBinding.Status">
+            <summary>
+            Статус
+            </summary>
+        </member>
+        <member name="P:WalletOneTest.Binding.CreateTaskBinding.PerformerId">
+            <summary>
+            Номер исполнителя
+            </summary>
+        </member>
+        <member name="P:WalletOneTest.Binding.PageBinding.Offset">
+            <summary>
+            Number of skipped items
+            </summary>
+        </member>
+        <member name="P:WalletOneTest.Binding.PageBinding.Limit">
+            <summary>
+            Number of items per page
+            </summary>
+        </member>
+        <member name="P:WalletOneTest.Binding.SaveTaskBinding.Name">
+            <summary>
+            Имя задачи
+            </summary>
+        </member>
+        <member name="P:WalletOneTest.Binding.SaveTaskBinding.Description">
+            <summary>
+            Описание задачи
+            </summary>
+        </member>
+        <member name="P:WalletOneTest.Binding.SaveTaskBinding.PerformerId">
+            <summary>
+            Номер исполнителя
+            </summary>
+        </member>
+        <member name="P:WalletOneTest.Binding.SaveUserBinding.FirstName">
+            <summary>
+            Фамилия
+            </summary>
+        </member>
+        <member name="P:WalletOneTest.Binding.SaveUserBinding.MiddleName">
+            <summary>
+            Имя
+            </summary>
+        </member>
+        <member name="M:WalletOneTest.Controllers.TaskController.GetUser(System.Int32,System.Threading.CancellationToken)">
+            <summary>
+            Get task by Id
+            </summary>
+            <param name="id">Id task</param>
+            <param name="cancellationToken"></param>
+            <response code ="200">Successfully</response>
+            <response code ="400">Id is empty</response>
+            <response code ="404">Task not found</response>
+        </member>
+        <member name="M:WalletOneTest.Controllers.TaskController.GetByPefrormerId(WalletOneTest.Binding.PageBinding,System.Int32,System.Threading.CancellationToken)">
+            <summary>
+            Get task by PerformerID
+            </summary>
+            <param name="page"></param>
+            <param name="cancellationToken"></param>
+            <response code ="200">Successfully</response>
+            <response code ="404">Task not found</response>
+        </member>
+        <member name="M:WalletOneTest.Controllers.TaskController.GetTaskBiDirectorId(WalletOneTest.Binding.PageBinding,System.Int32,System.Threading.CancellationToken)">
+            <summary>
+            Get task by PerformerID
+            </summary>
+            <param name="page"></param>
+            <param name="cancellationToken"></param>
+            <response code ="200">Successfully</response>
+            <response code ="404">Task not found</response>
+        </member>
+        <member name="M:WalletOneTest.Controllers.TaskController.EditTask(System.Int32,WalletOneTest.Binding.SaveTaskBinding,System.Threading.CancellationToken)">
+            <summary>
+            Edit task
+            </summary>
+            <param name="id">Id task</param>
+            <response code ="200">Successfully</response>
+            <param name="cancellationToken"></param>
+            <response code ="404">Task not found</response>
+        </member>
+        <member name="M:WalletOneTest.Controllers.TaskController.EditTaskStatus(System.Int32,BusinessLayer.Model.TaskStatus,System.Threading.CancellationToken)">
+            <summary>
+            Edit status
+            </summary>
+            <param name="id">Id task</param>
+            <response code ="200">Successfully</response>
+            <param name="cancellationToken"></param>
+            <response code ="404">Task not found</response>
+        </member>
+        <member name="M:WalletOneTest.Controllers.TaskController.EditTaskDirector(System.Int32,System.Int32,System.Threading.CancellationToken)">
+            <summary>
+            Edit director
+            </summary>
+            <param name="id">Id task</param>
+            <response code ="200">Successfully</response>
+            <param name="cancellationToken"></param>
+            <response code ="404">Task not found</response>
+        </member>
+        <member name="M:WalletOneTest.Controllers.UserController.GetUser(System.Int32,System.Threading.CancellationToken)">
+            <summary>
+            Get user by Id
+            </summary>
+            <param name="id">Id user</param>
+            <param name="cancellationToken"></param>
+            <response code ="200">Successfully</response>
+            <response code ="400">Id is empty</response>
+            <response code ="404">User not found</response>
+        </member>
+        <member name="M:WalletOneTest.Controllers.UserController.GetUsers(WalletOneTest.Binding.PageBinding,System.Threading.CancellationToken)">
+            <summary>
+            Get users
+            </summary>
+            <param name="page"></param>
+            <param name="cancellationToken"></param>
+            <response code ="200">Successfully</response>
+            <response code ="404">Users not found</response>
+        </member>
+        <member name="M:WalletOneTest.Controllers.UserController.EditUser(System.Int32,WalletOneTest.Binding.SaveUserBinding,System.Threading.CancellationToken)">
+            <summary>
+            Edit user
+            </summary>
+            <param name="id">Id user</param>
+            <response code ="200">Successfully</response>
+            <param name="cancellationToken"></param>
+            <response code ="404">User not found</response>
+        </member>
+        <member name="M:WalletOneTest.Controllers.UserController.SetTask(System.Int32,WalletOneTest.Binding.CreateTaskBinding,System.Threading.CancellationToken)">
+            <summary>
+            Set task
+            </summary>
+            <param name="id">Id director</param>
+            <response code ="200">Successfully</response>
+            <param name="cancellationToken"></param>
+            <response code ="404">User not found</response>
+            <response code ="409">this number task is busy</response>
+        </member>
+    </members>
+</doc>
