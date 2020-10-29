@@ -5917,8 +5917,8 @@
     },
     "BusinessLayer/1.0.0": {
       "type": "project",
-      "path": "../Database/BusinessLayer.csproj",
-      "msbuildProject": "../Database/BusinessLayer.csproj"
+      "path": "../BusinessLayer/BusinessLayer.csproj",
+      "msbuildProject": "../BusinessLayer/BusinessLayer.csproj"
     }
   },
   "projectFileDependencyGroups": {
@@ -5956,8 +5956,8 @@
       "frameworks": {
         "netcoreapp3.1": {
           "projectReferences": {
-            "C:\\Users\\Данил\\source\\repos\\WalletOneTest\\Database\\BusinessLayer.csproj": {
-              "projectPath": "C:\\Users\\Данил\\source\\repos\\WalletOneTest\\Database\\BusinessLayer.csproj"
+            "C:\\Users\\Данил\\source\\repos\\WalletOneTest\\BusinessLayer\\BusinessLayer.csproj": {
+              "projectPath": "C:\\Users\\Данил\\source\\repos\\WalletOneTest\\BusinessLayer\\BusinessLayer.csproj"
             }
           }
         }
