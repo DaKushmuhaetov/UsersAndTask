@@ -69,7 +69,7 @@ namespace WalletOneTest.Controllers
         public async Task<ActionResult<Page<UserViewModel>>> GetUsers([FromQuery]PageBinding page
             , CancellationToken cancellationToken)
         {
-            var users = await _userDI.GetUsers();
+            var users = await _userDI.GetUsers(page.Offset, page.Limit);
 
             var query = users.Select(o => new UserViewModel
             {
@@ -81,10 +81,7 @@ namespace WalletOneTest.Controllers
                 Status = o.Status
             });
 
-            var items = query
-                .Skip(page.Offset)
-                .Take(page.Limit)
-                .ToList();
+            var items = query.ToList();
 
             if (items.Count == 0)
             {
@@ -93,9 +90,7 @@ namespace WalletOneTest.Controllers
 
             return new Page<UserViewModel>
             {
-                Limit = page.Limit,
-                Offset = page.Offset,
-                Total = query.Count(),
+                Total = items.Count(),
                 Items = items
             };
         }
@@ -119,17 +114,17 @@ namespace WalletOneTest.Controllers
                 return NotFound(editUser);
             }
 
-            User user = new User(id, userBinding.FirstName, userBinding.MiddleName, editUser.DateCreate, DateTime.Now, editUser.Status);
-            await _userDI.Save(user, cancellationToken);
+            editUser.EditUser(userBinding.FirstName, userBinding.MiddleName);
+            await _userDI.Save(editUser, cancellationToken);
 
             return new UserViewModel
             {
-                Id = user.Id,
-                FirstName = user.FirstName,
-                MiddleName = user.MiddleName,
-                DateCreate = user.DateCreate,
-                DateLastEdit = user.DateLastEdit,
-                Status = user.Status
+                Id = editUser.Id,
+                FirstName = editUser.FirstName,
+                MiddleName = editUser.MiddleName,
+                DateCreate = editUser.DateCreate,
+                DateLastEdit = editUser.DateLastEdit,
+                Status = editUser.Status
             };
         }
 
@@ -154,7 +149,7 @@ namespace WalletOneTest.Controllers
                 return NotFound(user);
             }
 
-            if(task != null)
+            if (task != null)
             {
                 return Conflict(task);
             }

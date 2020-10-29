@@ -7,10 +7,10 @@ namespace BusinessLayer.Model
     public class User
     {
         public int Id { get; }
-        public string FirstName { get; }
-        public string MiddleName { get; }
+        public string FirstName { get; private set; }
+        public string MiddleName { get; private set; }
         public DateTime DateCreate { get; }
-        public DateTime DateLastEdit { get; }
+        public DateTime DateLastEdit { get; private set; }
         public UserStatus Status { get; private set; }
 
         private User() { }
@@ -22,6 +22,13 @@ namespace BusinessLayer.Model
             DateCreate = dateCreate;
             DateLastEdit = dateLastEdit;
             Status = status;
+        }
+
+        public void EditUser(string firstName, string middleName)
+        {
+            FirstName = firstName;
+            MiddleName = middleName;
+            DateLastEdit = DateTime.Now;
         }
     }
 }

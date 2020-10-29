@@ -21,14 +21,14 @@ namespace DataAccessLayer.DI
             return await _context.TaskUsers.SingleOrDefaultAsync(o => o.Id == id, cancellationToken);
         }
 
-        public async Task<List<TaskUser>> GetByDirector(int id, CancellationToken cancellationToken)
+        public async Task<List<TaskUser>> GetByDirector(int id, CancellationToken cancellationToken, int offset, int limit)
         {
-            return await _context.TaskUsers.Where(o => o.DirectorId == id).ToListAsync(cancellationToken);
+            return await _context.TaskUsers.Skip(offset).Take(limit).Where(o => o.DirectorId == id).ToListAsync(cancellationToken);
         }
 
-        public async Task<List<TaskUser>> GetByPerformer(int id, CancellationToken cancellationToken)
+        public async Task<List<TaskUser>> GetByPerformer(int id, CancellationToken cancellationToken, int offset, int limit)
         {
-            return await _context.TaskUsers.Where(o => o.PerformerId == id).ToListAsync(cancellationToken);
+            return await _context.TaskUsers.Skip(offset).Take(limit).Where(o => o.PerformerId == id).ToListAsync(cancellationToken);
         }
 
         public async Task Create(TaskUser task, CancellationToken cancellationToken)
@@ -39,29 +39,8 @@ namespace DataAccessLayer.DI
 
         public async Task Save(TaskUser task, CancellationToken cancellationToken)
         {
-            TaskUser editTask = await _context.TaskUsers.Where(o => o.Id == task.Id).SingleOrDefaultAsync();
-            _context.TaskUsers.Remove(editTask);
-            await _context.AddAsync(task);
-            await _context.SaveChangesAsync(cancellationToken);
-        }
-
-        public async Task SetStatus(int id, BusinessLayer.Model.TaskStatus status, CancellationToken cancellationToken)
-        {
-            TaskUser editTask = await _context.TaskUsers.Where(o => o.Id == id).SingleOrDefaultAsync();
-            _context.Remove(editTask);
-            await _context.SaveChangesAsync();
-            editTask.SetStatus(status);
-            await _context.TaskUsers.AddAsync(editTask);
-            await _context.SaveChangesAsync(cancellationToken);
-        }
-
-        public async Task SetDirector(int id, int directorId, CancellationToken cancellationToken)
-        {
-            TaskUser editTask = await _context.TaskUsers.Where(o => o.Id == id).SingleOrDefaultAsync();
-            _context.Remove(editTask);
-            await _context.SaveChangesAsync();
-            editTask.SetDirector(directorId);
-            await _context.TaskUsers.AddAsync(editTask);
+            if (_context.Entry(task).State == EntityState.Detached)
+                _context.Add(task);
             await _context.SaveChangesAsync(cancellationToken);
         }
     }

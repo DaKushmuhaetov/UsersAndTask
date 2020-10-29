@@ -69,7 +69,7 @@ namespace WalletOneTest.Controllers
         public async Task<ActionResult<Page<TaskView>>> GetByPefrormerId([FromQuery]PageBinding page, [FromQuery]int id
             , CancellationToken cancellationToken)
         {
-            var tasks = await _taskDI.GetByPerformer(id, cancellationToken);
+            var tasks = await _taskDI.GetByPerformer(id, cancellationToken, page.Offset, page.Limit);
 
             var query = tasks.Select(o => new TaskView
             {
@@ -82,10 +82,7 @@ namespace WalletOneTest.Controllers
                 PerformerId = o.PerformerId
             });
 
-            var items = query
-                .Skip(page.Offset)
-                .Take(page.Limit)
-                .ToList();
+            var items = query.ToList();
 
             if (items.Count == 0)
             {
@@ -94,9 +91,7 @@ namespace WalletOneTest.Controllers
 
             return new Page<TaskView>
             {
-                Limit = page.Limit,
-                Offset = page.Offset,
-                Total = query.Count(),
+                Total = items.Count(),
                 Items = items
             };
         }
@@ -113,7 +108,7 @@ namespace WalletOneTest.Controllers
         public async Task<ActionResult<Page<TaskView>>> GetTaskBiDirectorId([FromQuery]PageBinding page, [FromQuery]int id
             , CancellationToken cancellationToken)
         {
-            var tasks = await _taskDI.GetByDirector(id, cancellationToken);
+            var tasks = await _taskDI.GetByDirector(id, cancellationToken, page.Offset, page.Limit);
 
             var query = tasks.Select(o => new TaskView
             {
@@ -126,10 +121,7 @@ namespace WalletOneTest.Controllers
                 PerformerId = o.PerformerId
             });
 
-            var items = query
-                .Skip(page.Offset)
-                .Take(page.Limit)
-                .ToList();
+            var items = query.ToList();
 
             if (items.Count == 0)
             {
@@ -138,8 +130,6 @@ namespace WalletOneTest.Controllers
 
             return new Page<TaskView>
             {
-                Limit = page.Limit,
-                Offset = page.Offset,
                 Total = query.Count(),
                 Items = items
             };
@@ -164,19 +154,19 @@ namespace WalletOneTest.Controllers
                 return NotFound(editTask);
             }
 
-            TaskUser task = new TaskUser(id, taskBinding.Name, taskBinding.Description, editTask.DateCreate, DateTime.Now, editTask.Status, editTask.DirectorId, taskBinding.PerformerId);
-            await _taskDI.Save(task, cancellationToken);
+            editTask.EditTask(taskBinding.Name, taskBinding.Description, taskBinding.PerformerId);
+            await _taskDI.Save(editTask, cancellationToken);
 
             return new TaskView
             {
-                Id = task.Id,
-                Name = task.Name,
-                Description = task.Description,
-                DateCreate = task.DateCreate,
-                DateLastEdit = task.DateLastEdit,
-                DirectorId = task.DirectorId,
-                PerformerId = task.PerformerId,
-                Status = task.Status
+                Id = editTask.Id,
+                Name = editTask.Name,
+                Description = editTask.Description,
+                DateCreate = editTask.DateCreate,
+                DateLastEdit = editTask.DateLastEdit,
+                DirectorId = editTask.DirectorId,
+                PerformerId = editTask.PerformerId,
+                Status = editTask.Status
             };
         }
 
@@ -199,20 +189,19 @@ namespace WalletOneTest.Controllers
                 return NotFound(editTask);
             }
 
-            await _taskDI.SetStatus(id, status, cancellationToken);
-
-            var task = await _taskDI.Get(id, cancellationToken);
+            editTask.SetStatus(status);
+            await _taskDI.Save(editTask, cancellationToken);
 
             return new TaskView
             {
-                Id = task.Id,
-                Name = task.Name,
-                Description = task.Description,
-                DateCreate = task.DateCreate,
-                DateLastEdit = task.DateLastEdit,
-                DirectorId = task.DirectorId,
-                PerformerId = task.PerformerId,
-                Status = task.Status
+                Id = editTask.Id,
+                Name = editTask.Name,
+                Description = editTask.Description,
+                DateCreate = editTask.DateCreate,
+                DateLastEdit = editTask.DateLastEdit,
+                DirectorId = editTask.DirectorId,
+                PerformerId = editTask.PerformerId,
+                Status = editTask.Status
             };
         }
 
@@ -235,20 +224,19 @@ namespace WalletOneTest.Controllers
                 return NotFound(editTask);
             }
 
-            await _taskDI.SetDirector(id, idDirector, cancellationToken);
-
-            var task = await _taskDI.Get(id, cancellationToken);
+            editTask.SetDirector(idDirector);
+            await _taskDI.Save(editTask, cancellationToken);
 
             return new TaskView
             {
-                Id = task.Id,
-                Name = task.Name,
-                Description = task.Description,
-                DateCreate = task.DateCreate,
-                DateLastEdit = task.DateLastEdit,
-                DirectorId = task.DirectorId,
-                PerformerId = task.PerformerId,
-                Status = task.Status
+                Id = editTask.Id,
+                Name = editTask.Name,
+                Description = editTask.Description,
+                DateCreate = editTask.DateCreate,
+                DateLastEdit = editTask.DateLastEdit,
+                DirectorId = editTask.DirectorId,
+                PerformerId = editTask.PerformerId,
+                Status = editTask.Status
             };
         }
     }

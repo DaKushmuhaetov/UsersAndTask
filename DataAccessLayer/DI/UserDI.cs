@@ -24,9 +24,8 @@ namespace DataAccessLayer.DI
 
         public async Task Save(User user, CancellationToken cancellationToken)
         {
-            User editUser = await _context.Users.Where(o => o.Id == user.Id).FirstOrDefaultAsync();
-            _context.Users.Remove(editUser);
-            await _context.AddAsync(user, cancellationToken);
+            if (_context.Entry(user).State == EntityState.Detached)
+                _context.Add(user);
             await _context.SaveChangesAsync();
         }
 
@@ -35,9 +34,9 @@ namespace DataAccessLayer.DI
             return await _context.Users.SingleOrDefaultAsync(o => o.Id == id, cancellationToken);
         }
 
-        public async Task<List<User>> GetUsers()
+        public async Task<List<User>> GetUsers(int offset, int limit)
         {
-            return await _context.Users.ToListAsync();
+            return await _context.Users.Skip(offset).Take(limit).ToListAsync();
         }
     }
 }
