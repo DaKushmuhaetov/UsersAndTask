@@ -18,13 +18,13 @@ namespace BusinessLayer.Model
         public int PerformerId { get; private set; }
 
         private TaskUser() { }
-        public TaskUser(int id, string name, string description, DateTime dateCreate, DateTime dateLastEdit, TaskStatus status, int directorId, int performerId)
+        public TaskUser(int id, string name, string description, TaskStatus status, int directorId, int performerId)
         {
             Id = id;
             Name = name;
             Description = description;
-            DateCreate = dateCreate;
-            DateLastEdit = dateLastEdit;
+            DateCreate = DateTime.Now;
+            DateLastEdit = DateCreate;
             Status = status;
             DirectorId = directorId;
             PerformerId = performerId;

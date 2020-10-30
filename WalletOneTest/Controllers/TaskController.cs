@@ -97,7 +97,7 @@ namespace WalletOneTest.Controllers
         }
 
         /// <summary>
-        /// Get task by PerformerID
+        /// Get task by DirectorID
         /// </summary>
         /// <param name="page"></param>
         /// <param name="cancellationToken"></param>
@@ -142,7 +142,7 @@ namespace WalletOneTest.Controllers
         /// <response code ="200">Successfully</response>
         /// <param name="cancellationToken"></param>
         /// <response code ="404">Task not found</response>
-        [HttpPost("save")]
+        [HttpPut("save")]
         [ProducesResponseType(typeof(TaskView), 200)]
         public async Task<ActionResult<TaskView>> EditTask([FromQuery] int id, [FromBody]SaveTaskBinding taskBinding
             , CancellationToken cancellationToken)
@@ -155,7 +155,7 @@ namespace WalletOneTest.Controllers
             }
 
             editTask.EditTask(taskBinding.Name, taskBinding.Description, taskBinding.PerformerId);
-            await _taskDI.Save(editTask, cancellationToken);
+            await _taskDI.Save(cancellationToken);
 
             return new TaskView
             {
@@ -190,7 +190,7 @@ namespace WalletOneTest.Controllers
             }
 
             editTask.SetStatus(status);
-            await _taskDI.Save(editTask, cancellationToken);
+            await _taskDI.Save(cancellationToken);
 
             return new TaskView
             {
@@ -225,7 +225,7 @@ namespace WalletOneTest.Controllers
             }
 
             editTask.SetDirector(idDirector);
-            await _taskDI.Save(editTask, cancellationToken);
+            await _taskDI.Save(cancellationToken);
 
             return new TaskView
             {

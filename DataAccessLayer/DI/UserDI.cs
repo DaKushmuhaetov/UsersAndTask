@@ -22,10 +22,8 @@ namespace DataAccessLayer.DI
             await _context.SaveChangesAsync(cancellationToken);
         }
 
-        public async Task Save(User user, CancellationToken cancellationToken)
+        public async Task Save(CancellationToken cancellationToken)
         {
-            if (_context.Entry(user).State == EntityState.Detached)
-                _context.Add(user);
             await _context.SaveChangesAsync();
         }
 

@@ -10,3 +10,4 @@ C:\Users\Данил\source\repos\WalletOneTest\BusinessLayer\obj\Debug\netcoreap
 C:\Users\Данил\source\repos\WalletOneTest\BusinessLayer\obj\Debug\netcoreapp3.1\BusinessLayer.dll
 C:\Users\Данил\source\repos\WalletOneTest\BusinessLayer\obj\Debug\netcoreapp3.1\BusinessLayer.pdb
 C:\Users\Данил\source\repos\WalletOneTest\BusinessLayer\obj\Debug\netcoreapp3.1\BusinessLayer.genruntimeconfig.cache
+C:\Users\Данил\source\repos\WalletOneTest\BusinessLayer\obj\Debug\netcoreapp3.1\BusinessLayer.csprojAssemblyReference.cache

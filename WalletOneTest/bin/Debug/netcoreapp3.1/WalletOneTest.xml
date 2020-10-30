@@ -95,7 +95,7 @@
         </member>
         <member name="M:WalletOneTest.Controllers.TaskController.GetTaskBiDirectorId(WalletOneTest.Binding.PageBinding,System.Int32,System.Threading.CancellationToken)">
             <summary>
-            Get task by PerformerID
+            Get task by DirectorID
             </summary>
             <param name="page"></param>
             <param name="cancellationToken"></param>

@@ -102,7 +102,7 @@ namespace WalletOneTest.Controllers
         /// <response code ="200">Successfully</response>
         /// <param name="cancellationToken"></param>
         /// <response code ="404">User not found</response>
-        [HttpPost("save")]
+        [HttpPut("save")]
         [ProducesResponseType(typeof(UserViewModel), 200)]
         public async Task<ActionResult<UserViewModel>> EditUser([FromQuery] int id, [FromBody]SaveUserBinding userBinding
             , CancellationToken cancellationToken)
@@ -115,7 +115,7 @@ namespace WalletOneTest.Controllers
             }
 
             editUser.EditUser(userBinding.FirstName, userBinding.MiddleName);
-            await _userDI.Save(editUser, cancellationToken);
+            await _userDI.Save(cancellationToken);
 
             return new UserViewModel
             {
@@ -153,7 +153,7 @@ namespace WalletOneTest.Controllers
             {
                 return Conflict(task);
             }
-            TaskUser newTask = new TaskUser(taskBinding.Id, taskBinding.Name, taskBinding.Description, DateTime.Now, DateTime.Now, taskBinding.Status, id, taskBinding.PerformerId);
+            TaskUser newTask = new TaskUser(taskBinding.Id, taskBinding.Name, taskBinding.Description, taskBinding.Status, id, taskBinding.PerformerId);
 
             await _taskDI.Create(newTask, cancellationToken);
 
